@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import './App.css'
 
+import Navbar from './components/Navbar'
 /** Pages **/
 import Dashboard from './pages/dashboard/Dashboard'
 import Create from './pages/create/Create'
@@ -15,6 +16,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <div className="container">
+          <Navbar />
           <Switch>
             <Route exact path="/">
               <Dashboard />

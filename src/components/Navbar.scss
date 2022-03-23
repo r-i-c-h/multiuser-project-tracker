@@ -1,0 +1,37 @@
+.navbar {
+  width: 100%;
+  padding: 1rem 0;
+  margin-bottom: 3rem; //80px;
+  & ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  & li {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  & a {
+    color: #333;
+    text-decoration: none;
+    margin-right: 20px;
+  }
+  & .homelink {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+  }
+  & .logo {
+    font-weight: bold;
+    color: var(--heading-color);
+    letter-spacing: 1px;
+    margin-right: auto;
+    & img {
+      margin-right: 0.48em;
+      filter: invert(25%);
+      width: 2em;
+    }
+  }
+}
