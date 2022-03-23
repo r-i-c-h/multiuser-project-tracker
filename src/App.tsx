@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import './App.css'
-
+/** Widgets **/
 import Navbar from './components/Navbar'
+import Sidebar from './components/Sidebar'
 /** Pages **/
 import Dashboard from './pages/dashboard/Dashboard'
 import Create from './pages/create/Create'
@@ -15,6 +16,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Sidebar />
         <div className="container">
           <Navbar />
           <Switch>
