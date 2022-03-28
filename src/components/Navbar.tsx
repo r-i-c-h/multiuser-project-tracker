@@ -1,8 +1,14 @@
+import { Link } from 'react-router-dom';
+import { useLogout } from '../hooks/useLogout';
+import { projectAuth } from '../firebase/config';
+
 import './Navbar.scss'
 import Logo from '../assets/logo.svg';
-import { Link } from 'react-router-dom';
 
 export default function Navbar() {
+  const { logout, isPending } = useLogout();
+  const isUserLoggedIn = projectAuth.currentUser === null ? false : true;
+
   return (
     <nav className='navbar'>
       <ul>
@@ -13,10 +19,11 @@ export default function Navbar() {
           </Link>
         </li>
 
-        <li><Link to="/login">Login</Link></li>
-        <li><Link to="/signup">Signup </Link></li>
+        {!isUserLoggedIn && <li><Link to="/login">Login</Link></li>}
+        {!isUserLoggedIn && <li><Link to="/signup">Signup </Link></li>}
         <li>
-          <button className="btn">Logout</button>
+          {isUserLoggedIn && !isPending && <button className="btn" onClick={logout}>Logout</button>}
+          {isUserLoggedIn && isPending && <button className="btn" disabled>Working</button>}
         </li>
       </ul>
     </nav>
