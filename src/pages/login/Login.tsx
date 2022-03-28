@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react';
+import { AppTitleH1 } from '../../components/Titles';
 import { useLogin } from '../../hooks/useLogin';
 import { handleError } from '../../ts/ErrorHandler'
 
@@ -14,9 +15,10 @@ export default function Login() {
     login(email, password)
   }
 
-  return (
+  return (<>
+    <AppTitleH1 />
     <form onSubmit={handleSubmit} className="login-form">
-      <h2 className="widget-title">Log In</h2>
+      <h2>Account Login</h2>
       <label> {/* Email */}
         <span>Email:</span>
         <input
@@ -39,5 +41,5 @@ export default function Login() {
       {isPending && <button className="btn" disabled>Loading</button>}
       {error && <div className="error">{handleError(error)}</div>}
     </form>
-  )
+  </>)
 }

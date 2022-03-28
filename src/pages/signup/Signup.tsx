@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { AppTitleH1 } from '../../components/Titles';
 import { useSignup } from '../../hooks/useSignup'
 import { handleError } from '../../ts/ErrorHandler'
 
@@ -40,47 +41,50 @@ export default function Signup() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="auth-form">
-      <h2 className="widget-title">Sign Up</h2>
-      <label>{/* Display name*/}
-        <span>Display Name:</span>
-        <input
-          required
-          type="text"
-          onChange={(e) => setDisplayName(e.target.value)}
-          value={displayName}
-        />
-      </label>
-      <label> {/* Email */}
-        <span>Email:</span>
-        <input
-          required
-          type="email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
-      </label>
-      <label> {/* Pwd */}
-        <span>Password:</span>
-        <input
-          required
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-      </label>
-      <label> {/* thumbnailImage */}
-        <span>Profile Image:</span>
-        <input
-          required
-          type="file"
-          onChange={handleImageFileInput}
-        />
-        {thumbnailError && <div className="error">{thumbnailError}</div>}
-      </label>
-      {!isPending && <button className="btn">Sign Up</button>}
-      {isPending && <button className="btn" disabled>Loading</button>}
-      {error && <div className="error">{handleError(error)}</div>}
-    </form>
+    <>
+      <AppTitleH1 />
+      <form onSubmit={handleSubmit} className="auth-form">
+        <h2 className="widget-title">Sign Up</h2>
+        <label>{/* Display name*/}
+          <span>Display Name:</span>
+          <input
+            required
+            type="text"
+            onChange={(e) => setDisplayName(e.target.value)}
+            value={displayName}
+          />
+        </label>
+        <label> {/* Email */}
+          <span>Email:</span>
+          <input
+            required
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+          />
+        </label>
+        <label> {/* Pwd */}
+          <span>Password:</span>
+          <input
+            required
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
+        </label>
+        <label> {/* thumbnailImage */}
+          <span>Profile Image:</span>
+          <input
+            required
+            type="file"
+            onChange={handleImageFileInput}
+          />
+          {thumbnailError && <div className="error">{thumbnailError}</div>}
+        </label>
+        {!isPending && <button className="btn">Sign Up</button>}
+        {isPending && <button className="btn" disabled>Loading</button>}
+        {error && <div className="error">{handleError(error)}</div>}
+      </form>
+    </>
   )
 }

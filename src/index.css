@@ -22,13 +22,14 @@ body {
 ul {
   list-style-type: none;
 }
-
-/* layout */
+/* utils */
 .page-title {
   font-size: 1em;
   color: var(--heading-color);
   display: inline-block;
 }
+
+/* button */
 .btn {
   background: inherit; /* background: #fff; */
   padding: 0.48em 0.7em; /* padding: 8px 12px; */
@@ -67,6 +68,7 @@ textarea {
 textarea {
   min-height: 160px;
 }
+
 .error {
   color: red;
   background: pink;
