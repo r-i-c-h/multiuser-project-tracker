@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { projectAuth } from '../firebase/config'
+import { projectAuth, projectFirestore } from '../firebase/config'
 import { useAuthContext } from './useAuthContext';
 import { handleError } from '../ts/ErrorHandler';
 
@@ -16,7 +16,9 @@ export const useLogin = () => {
     try {
       const res = await projectAuth.signInWithEmailAndPassword(email, password);
 
-      if (!res) { throw new Error('Could not Login') }
+      if (!res || !res.user) { throw new Error('Could not Login') }
+
+      await projectFirestore.collection('users').doc(res.user.uid).update({ online: true })
 
       dispatch!({ type: 'LOGIN', payload: res.user })
 
