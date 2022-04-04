@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useState } from "react";
 import { projectFirestore, timestamp } from "../firebase/config";
 import { handleError } from "../ts/ErrorHandler";
-import { INewItem } from "../ts/interfaces";
+import { INewItem } from "../ts/interfaces-and-types";
 
 type Action =
   | { type: 'IS_PENDING', payload: null }

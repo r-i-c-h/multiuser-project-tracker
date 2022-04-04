@@ -1,18 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { projectFirestore } from "../firebase/config";
 import { handleError } from "../ts/ErrorHandler";
-//! WARN ⚠️⚠️⚠️ NEED TO UPDATE RETURNED DATA INTERFACE(s) ⚠️⚠️⚠️!!!
-import { IReturnedData } from "../ts/interfaces"; //TODO: ⚠️⚠️⚠️ NEED TO UPDATE RETURNED DATA INTERFACE(s) ⚠️⚠️⚠️!!!
+import { TReturnedData, TQueryOptions, TSortingOptions, TFlexibleRef } from "../ts/interfaces-and-types";
 
-import firebase from 'firebase/app'; // <~~ Need this for the proper typing ¯\_(ツ)_/¯
-
-type FieldPath = firebase.firestore.FieldPath;
-type TQueryOptions = [string | FieldPath, firebase.firestore.WhereFilterOp, string]
-type TSortingOptions = [string | FieldPath, "asc" | "desc"]
-type TFlexibleRef = firebase.firestore.CollectionReference | firebase.firestore.Query; //if 🎣 call *does* have options, it changes the typing...
 
 export const useCollection = (collection: string, options?: TQueryOptions, order?: TSortingOptions) => {
-  const [documents, setDocuments] = useState<null | IReturnedData[]>(null);
+  const [documents, setDocuments] = useState<null | TReturnedData[]>(null);
   const [error, setError] = useState<null | string>(null);
 
   // useRef Stops infinite update 🔄 when setting options/order as a useEffect() dependency
@@ -30,10 +23,10 @@ export const useCollection = (collection: string, options?: TQueryOptions, order
       ref = ref.orderBy(...sortingOptions);
     }
     const unsubscribe = ref.onSnapshot((snapshot) => {
-      let results: IReturnedData[] = [];
+      let results: TReturnedData[] = [];
 
       snapshot.docs.forEach(doc => {
-        const docData = { ...doc.data(), id: doc.id } as IReturnedData
+        const docData = { ...doc.data(), id: doc.id } as TReturnedData
         results.push(docData)
       })
 
