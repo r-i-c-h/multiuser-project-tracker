@@ -6,13 +6,11 @@ import { IUser } from "../ts/interfaces-and-types";
 
 
 export const useUsersCollection = () => {
-  console.log('Using useUsersCollection');
-
   //? Converter Function:  Tramsform obj{} of Type T into Firestore data
   // https://firebase.google.com/docs/reference/js/v8/firebase.firestore.FirestoreDataConverter
   // https://stackoverflow.com/questions/60065396/add-typings-to-firebase-collection-query
-  // await db.collection('products').get() as firebase.firestore.QuerySnapshot<Product>;
-  // await db.collection('products').doc('12345').get() as firebase.firestore.DocumentSnapshot<Product>;
+  // await db.collection('foos').get() as firebase.firestore.QuerySnapshot<Foo>;
+  // await db.collection('foos').doc('12345').get() as firebase.firestore.DocumentSnapshot<Foo>;
 
   const userConverter = {
     toFirestore(user: IUser): firebase.firestore.DocumentData {
@@ -47,6 +45,7 @@ export const useUsersCollection = () => {
           results.push(docData)
         }
       })
+
 
       // ...Update State:
       setUsersState(results)
