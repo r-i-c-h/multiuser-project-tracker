@@ -1,37 +1,34 @@
 .navbar {
   width: 100%;
-  padding: 1rem 0;
-  margin-bottom: 2rem; //80px;
+  height: 2em;
+  margin-bottom: 4em; //80px;
   & ul {
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
-  & li {
-    height: 38px;
-    display: flex;
+    margin: 0 auto;
     align-items: center;
     justify-content: flex-end;
   }
   & a {
-    color: #333;
+    color: var(--heading-color);
     text-decoration: none;
-    margin-right: 20px;
+    margin-right: 1.2em;
   }
-  & .homelink {
+  & .app-box {
+    margin-right: auto;
+  }
+  & .app-link {
     display: flex;
     align-items: center;
-    margin-right: auto;
   }
-  & .logo {
+  & .app-logo {
+    margin-right: 0.32em;
+    filter: invert(25%);
+    width: 2em;
+    height: 2em;
+  }
+  & .app-title {
+    font-size: 1.2em;
     font-weight: bold;
-    color: var(--heading-color);
     letter-spacing: 1px;
-    margin-right: auto;
-    & img {
-      margin-right: 0.48em;
-      filter: invert(25%);
-      width: 2em;
-    }
   }
 }

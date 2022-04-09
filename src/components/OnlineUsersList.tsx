@@ -11,12 +11,14 @@ const isOnlineSortCallback = (a: IUser, b: IUser) => a.online > b.online ? -1 : 
 const nameSortCallback = (a: IUser, b: IUser) => a.displayName < b.displayName ? -1 : a.displayName > b.displayName ? 1 : 0;
 
 export default function OnlineUsersList() {
-  const { user } = useAuthContext();
+  const { user } = useAuthContext(); // Currently logged-in user
   const { usersState, error } = useUsersCollection();
 
   return (
     <div className="user-list-wrapper">
-      <h2>All Users</h2>
+      <div className="user-list-title-wrapper">
+        <h2>All Users</h2>
+      </div>
       {error && <div className="error">{error}</div>}
       <ul className="user-list">
         {

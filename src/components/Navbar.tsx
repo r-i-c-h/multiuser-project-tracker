@@ -12,19 +12,16 @@ export default function Navbar() {
   return (
     <nav className='navbar'>
       <ul>
-        <li className="logo">
-          <Link to="/" className="homelink">
-            <img src={Logo} alt="App Logo" />
-            <span>Horizon Key</span>
+        <li className="app-box">
+          <Link to="/" className="app-link">
+            <img src={Logo} alt="App Logo" className="app-logo" />
+            <span className="app-title">Horizon Key</span>
           </Link>
         </li>
-
         {!user && <li><Link to="/login">Login</Link></li>}
         {!user && <li><Link to="/signup">Signup </Link></li>}
-        <li>
-          {user && !isPending && <button className="btn" onClick={logout}>Logout</button>}
-          {user && isPending && <button className="btn" disabled>Working</button>}
-        </li>
+        {user && !isPending && <li><button className="btn" onClick={logout}>Logout</button></li>}
+        {user && isPending && <li><button className="btn" disabled>Working</button></li>}
       </ul>
     </nav>
   )

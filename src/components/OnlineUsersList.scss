@@ -1,26 +1,31 @@
 .user-list-wrapper {
   width: 240px;
   min-width: 240px;
+  // position: relative;
   min-height: 100vh;
-  position: relative;
-  padding: 1.08rem;
-  padding-top: 3.6em;
+  padding: 1.28rem 1em 0 2em;
   background: #fbfbfb;
   color: var(--heading-color);
   text-align: right;
+}
+.user-list-title-wrapper{
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 0em;
+  margin-bottom: 3.6em;
   & h2 {
-    margin-bottom: 2em;
     font-size: 1.2em;
   }
 }
-
 .user-list{
   & .user-list-item {
+    position: relative;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin: 0.5em auto;
-    position: relative;
+    margin: 1.2em auto;
   }
   & .avatar {
     margin-left: 5px;
@@ -29,12 +34,24 @@
   }
   & .is-online{
     position: absolute;
-    height: 0.96em;
-    width: 0.96em;
-    right: -0.4em;
-    top: 1em;
+    height: 0.9em;
+    width: 0.9em;
+    right: -0.3em;
+    bottom: -0.3em;
     background: #0ebb50;
     border-radius: 100%;
-    border: 1px solid white;;
+    border: 1px solid white;
+    &:hover::before{
+      content:'User Online';
+      position: absolute;
+      right: 0.7em;
+      bottom: -1.2em;
+      width: 69px;
+      padding: 0.1em 0.2em;
+      font-size: 10px;
+      text-align: center;
+      background-color: #fbfbfb;
+      border: 1px black solid;
+    }
   }
 }
