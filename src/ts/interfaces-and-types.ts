@@ -14,9 +14,19 @@ export type TReturnedData =
 /*** Interfaces: ***/
 export interface IUser {
   id?: string;
+  uid?: string;
   displayName: string;
   online: boolean;
   photoURL: string;
+}
+
+export interface IProject {
+  projectName: string;
+  endDate: Date | string;
+  createdAt: Date | string;
+  details: string;
+  category: string;
+  assignedUsers: IUser | IUser[] | IUser[][];
 }
 
 //! WARN ⚠️⚠️⚠️ NEED TO UPDATE RETURNED DATA INTERFACE(s) in useFirestore() 🎣 ⚠️⚠️⚠️!!!
