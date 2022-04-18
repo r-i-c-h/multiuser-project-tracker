@@ -14,7 +14,7 @@ export const useUsersCollection = () => {
 
   const userConverter = {
     toFirestore(user: IUser): firebase.firestore.DocumentData {
-      return { id: user.id, displayName: user.displayName, online: user.online, photoURL: user.photoURL };
+      return { uid: user.uid, displayName: user.displayName, online: user.online, photoURL: user.photoURL };
     },
     fromFirestore(
       snapshot: firebase.firestore.QueryDocumentSnapshot,
@@ -22,7 +22,7 @@ export const useUsersCollection = () => {
     ): IUser {
       const data = snapshot.data(options);
       return {
-        id: data.id,
+        uid: data.uid,
         displayName: data.displayName,
         online: data.online,
         photoURL: data.photoURL
@@ -30,7 +30,7 @@ export const useUsersCollection = () => {
     }
   };
 
-  const [usersState, setUsersState] = useState<null | IUser[]>(null);
+  const [users, setUsers] = useState<null | IUser[]>(null);
   const [error, setError] = useState<null | string>(null);
 
   useEffect(() => { // useEffect will fire as soon as this mounts to the DOM
@@ -41,14 +41,14 @@ export const useUsersCollection = () => {
       snapshot.docs.forEach(doc => {
         if (doc.exists) {
           let docData = doc.data() as IUser
-          docData.id = doc.id
+          docData.uid = doc.id
           results.push(docData)
         }
       })
 
 
       // ...Update State:
-      setUsersState(results)
+      setUsers(results)
       setError(null);
     }, (err) => {
       setError(handleError(err));
@@ -59,5 +59,5 @@ export const useUsersCollection = () => {
     return () => unsubscribe()
   }, [])
 
-  return { usersState, error }
+  return { users, error }
 }

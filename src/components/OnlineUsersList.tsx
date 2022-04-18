@@ -12,7 +12,7 @@ const nameSortCallback = (a: IUser, b: IUser) => a.displayName < b.displayName ?
 
 export default function OnlineUsersList() {
   const { user } = useAuthContext(); // Currently logged-in user
-  const { usersState, error } = useUsersCollection();
+  const { users, error } = useUsersCollection();
 
   return (
     <div className="user-list-wrapper">
@@ -22,12 +22,12 @@ export default function OnlineUsersList() {
       {error && <div className="error">{error}</div>}
       <ul className="user-list">
         {
-          user && usersState && [...usersState]
+          user && users && [...users]
             .filter(sysUser => sysUser.displayName !== user.displayName)
             .sort(nameSortCallback) // Alphabetical
             .sort(isOnlineSortCallback) // move online users to top
             .map((sysUser: IUser) => (
-              <li key={sysUser.id} className="user-list-item">
+              <li key={sysUser.uid} className="user-list-item">
                 <span className="status-name">
                   {sysUser.displayName}
                 </span>
