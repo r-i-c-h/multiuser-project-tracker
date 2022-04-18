@@ -2,3 +2,13 @@
   max-width: 640px;
   margin: auto;
 }
+
+.date-picker-input {
+  width: fit-content;
+}
+
+.date-picker-label {
+  display: inline-block;
+  margin-right: 1em;
+  padding: 8px 0;
+}

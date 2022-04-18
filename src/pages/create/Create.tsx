@@ -1,10 +1,15 @@
-import { ChangeEvent, FormEvent, SyntheticEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
+import Select, { MultiValue } from 'react-select';
+import UsersSelector from './UsersSelector';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import { IUser, IProject } from '../../ts/interfaces-and-types';
+import { IUser } from '../../ts/interfaces-and-types';
+
+type OptionType = { value: IUser; label: string; } // Writes-Over `react-select` generic default
 
 import './Create.scss'
 
-const categories = [
+type TCategory = { value: string; label: string; };
+const categoryOptions: TCategory[] = [
   { value: 'development', label: 'Development' },
   { value: 'design', label: 'Design' },
   { value: 'sales', label: 'Sales' },
@@ -13,31 +18,28 @@ const categories = [
 
 export default function Create() {
   // Add milestones?
-  const { user } = useAuthContext(); // need for createdBy field
+  const { user } = useAuthContext(); // (need for createdBy field - hook must be at "top level")
+  /** NEW PROJECT DETAILS: **/
   const [projectName, setProjectName] = useState('');
   const [endDate, setEndDate] = useState<string | Date>('');
-  const [createdAt, setCreatedAt] = useState<string | Date>('');
   const [details, setDetails] = useState('');
-  const [category, setCategory] = useState('default');
-  const [assignedUsers, setAssignedUsers] = useState();
+  const [selectedCategory, setSelectedCategory] = useState<TCategory | null>(null);
+  const [selectedUsers, setSelectedUsers] = useState<MultiValue<OptionType>>([]);
 
-  const handleClick = (e: SyntheticEvent) => {
-    console.log("Clicked")
-  }
-  const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value);
-  }
+  const [formError, setFormError] = useState<null | Error | string>(null)
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    if (category === "default") {
-      return null;
+    e.preventDefault();
+    const createdBy = user?.uid;
+    const createdAt = new Date();
+    const category = selectedCategory?.value;
+    const assignedUsers = selectedUsers;
+    if (assignedUsers.length === 0) {
+      setFormError('Need to assign someone to this project')
+    } else {
+      const newProject = { projectName, createdAt, createdBy, endDate, assignedUsers, details, category };
+      console.table(newProject);
     }
-    const now = new Date();
-    setCreatedAt(now);
-    const createdBy = user!.uid;
-    const newProject = { projectName, createdAt, createdBy, endDate, details, category };
-    console.table(newProject);
   }
 
   return (
@@ -53,6 +55,26 @@ export default function Create() {
             value={projectName}
           />
         </label>
+        <label> <span className="date-picker-label">Target Date:</span>
+          <input
+            required
+            className="date-picker-input"
+            type="date"
+            min="2022-01-01"
+            max="2099-12-31"
+            onChange={e => { setEndDate(e.target.value) }}
+            value={String(endDate)}
+          />
+        </label>
+        <label> <span>Project Category:</span>
+          <Select
+            aria-required={true}
+            defaultValue={selectedCategory}
+            placeholder="Select Department..."
+            onChange={setSelectedCategory}
+            options={categoryOptions}
+          />
+        </label>
         <label> <span>Description:</span>
           <textarea
             required
@@ -60,34 +82,13 @@ export default function Create() {
             value={details}
           />
         </label>
-        <label> <span>Set End Date:</span>
-          <input
-            type="date"
-            required
-            onChange={e => { setEndDate(e.target.value) }}
-            value={String(endDate)}
-          />
-        </label>
-        <label> <span>Project Cateogy:</span>
-          {/* ⚠️ W ⚠️ I ⚠️ P ⚠️  */}
-          <select defaultValue={category} onChange={handleSelect} required={true}>
-            <option value="default" disabled hidden>
-              Select Project Category...
-            </option>
-            <option value='development'>Development</option>
-            <option value='design'>Design</option>
-            <option value='sales'>Sales</option>
-            <option value='marketing'>Marketing</option>
-          </select>
-        </label>
-        <label> <span>Assigned Parties:</span>
-          {/* ⚠️ W ⚠️ I ⚠️ P ⚠️  */}
-          {/**TODO: SELECT BOX  **/}
-        </label>
-
-        <input onClick={handleClick} type="submit" className='btn' />
+        <UsersSelector
+          setSelectedUsers={setSelectedUsers}
+          selectedUsers={selectedUsers}
+        />
+        <button className="btn">Add Project</button>
       </form>
 
-    </div >
+    </div>
   )
 }
