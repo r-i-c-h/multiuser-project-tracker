@@ -1,20 +1,14 @@
-import React, { FormEvent, useEffect, useState } from 'react';
-import Select, { MultiValue } from 'react-select';
+import { FormEvent, useState } from 'react';
+import { MultiValue } from 'react-select';
 import UsersSelector from './UsersSelector';
+import CategorySelector from './CategorySelector';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { IUser } from '../../ts/interfaces-and-types';
 
-type OptionType = { value: IUser; label: string; } // Writes-Over `react-select` generic default
-
 import './Create.scss'
 
+type OptionType = { value: IUser; label: string; } // Writes-Over `react-select` generic default
 type TCategory = { value: string; label: string; };
-const categoryOptions: TCategory[] = [
-  { value: 'development', label: 'Development' },
-  { value: 'design', label: 'Design' },
-  { value: 'sales', label: 'Sales' },
-  { value: 'marketing', label: 'Marketing' },
-]
 
 export default function Create() {
   // Add milestones?
@@ -30,16 +24,24 @@ export default function Create() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    setFormError(null);
+    //! CHECK FOR category && assignedUsers aren't blank!
+    const assignedUsers = selectedUsers.values;
+    const category = selectedCategory?.value;
+    if (!category) {
+      setFormError('Please select a Project Category.')
+      return
+    }
+    if (assignedUsers.length < 1) {
+      setFormError('Project must be assigned to at least 1 User')
+      return
+    }
     const createdBy = user?.uid;
     const createdAt = new Date();
-    const category = selectedCategory?.value;
-    const assignedUsers = selectedUsers;
-    if (assignedUsers.length === 0) {
-      setFormError('Need to assign someone to this project')
-    } else {
-      const newProject = { projectName, createdAt, createdBy, endDate, assignedUsers, details, category };
-      console.table(newProject);
-    }
+
+    const newProject = { projectName, createdAt, createdBy, endDate, assignedUsers, details, category };
+    console.table(newProject);
+    return (newProject);
   }
 
   return (
@@ -55,6 +57,14 @@ export default function Create() {
             value={projectName}
           />
         </label>
+        <CategorySelector
+          setSelectedCategory={setSelectedCategory}
+          selectedCategory={selectedCategory}
+        />
+        <UsersSelector
+          setSelectedUsers={setSelectedUsers}
+          selectedUsers={selectedUsers}
+        />
         <label> <span className="date-picker-label">Target Date:</span>
           <input
             required
@@ -66,26 +76,16 @@ export default function Create() {
             value={String(endDate)}
           />
         </label>
-        <label> <span>Project Category:</span>
-          <Select
-            aria-required={true}
-            defaultValue={selectedCategory}
-            placeholder="Select Department..."
-            onChange={setSelectedCategory}
-            options={categoryOptions}
-          />
-        </label>
         <label> <span>Description:</span>
           <textarea
+            className="text-area-input"
             required
             onChange={e => { setDetails(e.target.value) }}
             value={details}
           />
         </label>
-        <UsersSelector
-          setSelectedUsers={setSelectedUsers}
-          selectedUsers={selectedUsers}
-        />
+
+        {formError && <p className="error">{formError}</p>}
         <button className="btn">Add Project</button>
       </form>
 

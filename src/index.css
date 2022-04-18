@@ -50,11 +50,11 @@ ul {
 /* forms */
 label {
   display: block;
-  margin: 24px auto;
+  margin: 1.2em auto;
 }
 label span {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 0.2em;
 }
 input,
 textarea {

@@ -5,10 +5,15 @@
 
 .date-picker-input {
   width: fit-content;
+  font-size: 1.1em;
 }
-
 .date-picker-label {
   display: inline-block;
   margin-right: 1em;
   padding: 8px 0;
+}
+
+.text-area-input {
+  min-height: 8em;
+  height: 8em;
 }
