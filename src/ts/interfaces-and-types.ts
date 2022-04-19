@@ -22,12 +22,16 @@ export interface IUser {
 
 export interface IProject {
   projectName: string;
-  endDate: Date | string;
-  createdBy?: string;
-  createdAt: Date | string;
+  endDate: Date | string | firebase.firestore.Timestamp;
+  createdBy: {
+    uid: string;
+    displayName: string | null;
+    photoURL: string | null;
+  };
   details: string;
-  category: string;
-  assignedUsers: IUser | IUser[] | IUser[][];
+  category: string | undefined;
+  comments: string[];
+  assignedUsers: Omit<IUser, 'online'>[];
 }
 
 //! WARN ⚠️⚠️⚠️ NEED TO UPDATE RETURNED DATA INTERFACE(s) in useFirestore() 🎣 ⚠️⚠️⚠️!!!
