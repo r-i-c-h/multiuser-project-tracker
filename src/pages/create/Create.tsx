@@ -1,14 +1,15 @@
 import { FormEvent, useState } from 'react';
 import { MultiValue } from 'react-select';
-
-import { timestamp } from '../../firebase/config';
-import { useFirestore } from '../../hooks/useFirestore';
+import { useHistory } from 'react-router-dom'
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { useFirestore } from '../../hooks/useFirestore';
+import { timestamp } from '../../firebase/config';
+
+import { IProject, IUser } from '../../ts/interfaces-and-types';
+import { handleError } from '../../ts/ErrorHandler';
 
 import UsersSelector from './UsersSelector';
 import CategorySelector from './CategorySelector';
-
-import { IProject, IUser } from '../../ts/interfaces-and-types';
 
 import './Create.scss'
 
@@ -17,13 +18,10 @@ type TCategory = { value: string; label: string; };
 
 export default function Create() {
   const { user } = useAuthContext(); // (need for createdBy field but hook must be at "top level")
-  const createdBy = {
-    uid: user!.uid,
-    displayName: user!.displayName,
-    photoURL: user!.photoURL
-  };
+  const { addDocument, response } = useFirestore('projects');
+  const history = useHistory(); // For changing page on add-success
+
   /** NEW PROJECT DETAILS: **/
-  // Add milestones?
   const [projectName, setProjectName] = useState('');
   const [dueDate, setDueDate] = useState<string | Date>('');
   const [details, setDetails] = useState('');
@@ -35,40 +33,57 @@ export default function Create() {
   const createNewProjectFromState = (): IProject => ({
     projectName,
     details,
-    createdBy,
-    endDate: timestamp.fromDate(new Date(dueDate)),
     category: selectedCategory!.value,
+    endDate: timestamp.fromDate(new Date(dueDate)),
     comments: [],
+    createdBy: {
+      uid: user!.uid,
+      displayName: user!.displayName,
+      photoURL: user!.photoURL
+    },
     assignedUsers: selectedUsers.map(usr => {
-      const { uid, displayName, photoURL } = usr.value;
-      return { uid, displayName, photoURL } as IUser
+      const { uid, displayName, photoURL }: Omit<IUser, 'online'> = usr.value;
+      return { uid, displayName, photoURL }
     })
   })
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    setFormError(null);
-    //! CHECK FOR category && assignedUsers aren't blank!
+  const isFormValid = () => {
     const category = selectedCategory?.value;
     if (!category) {
       setFormError('Please select a Project Category.')
-      return
+      return false;
     }
     if (selectedUsers.length < 1) {
       setFormError('Project must be assigned to at least 1 User')
-      return
+      return false;
     }
-    const project = createNewProjectFromState()
-    console.table(project);
-    useFirestore('projects')
-    return (project);
+    return true;
+  }
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setFormError(null); // Reset
+    const isFormOK = isFormValid();
+    if (!isFormOK) { return }
+
+    const project = await createNewProjectFromState()
+    try {
+      await addDocument(project);
+      if (!response.error) {
+        history.push('/')// redir to Dashboard
+      }
+    } catch (error) {
+      setFormError(handleError(error)) // Crude, but works...
+    }
   }
 
   return (
     <div className="create-form">
       <h2 className="page-title">Create New Project</h2>
-
       <form onSubmit={handleSubmit}>
+
+        {formError && <p className="error">{formError}</p>}
+
         <label> <span>Project Name:</span>
           <input
             required
@@ -81,10 +96,6 @@ export default function Create() {
           setSelectedCategory={setSelectedCategory}
           selectedCategory={selectedCategory}
         />
-        <UsersSelector
-          setSelectedUsers={setSelectedUsers}
-          selectedUsers={selectedUsers}
-        />
         <label> <span className="date-picker-label">Target Date:</span>
           <input
             required
@@ -96,6 +107,10 @@ export default function Create() {
             value={String(dueDate)}
           />
         </label>
+        <UsersSelector
+          setSelectedUsers={setSelectedUsers}
+          selectedUsers={selectedUsers}
+        />
         <label> <span>Description:</span>
           <textarea
             className="text-area-input"
@@ -104,9 +119,7 @@ export default function Create() {
             value={details}
           />
         </label>
-
-        {formError && <p className="error">{formError}</p>}
-        <button className="btn">Add Project</button>
+        <button className="btn" type='submit'>Add Project</button>
       </form>
 
     </div>

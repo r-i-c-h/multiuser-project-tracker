@@ -1,16 +1,16 @@
 import { useEffect, useReducer, useState } from "react";
 import { projectFirestore, timestamp } from "../firebase/config";
 import { handleError } from "../ts/ErrorHandler";
-import { INewItem } from "../ts/interfaces-and-types";
+import { IProject } from "../ts/interfaces-and-types";
 
 type Action =
   | { type: 'IS_PENDING', payload: null }
-  | { type: 'ADDED_DOCUMENT', payload: INewItem }
+  | { type: 'ADDED_DOCUMENT', payload: unknown } //! Maybe Pick<>? Will it always be project obj?
   | { type: 'DELETED_DOCUMENT', payload: null }
   | { type: 'ERROR', payload: string }
 
 type State = {
-  document: null | INewItem
+  document: null | unknown; //! Maybe Pick<>? Will it always be project obj?
   error: null | string; //** Skipping unknown because `handleError()` will return a string */
   isPending: boolean;
   success: null | boolean;
@@ -38,29 +38,29 @@ const firestoreReducer = (state: State, action: Action): State => {
   }
 }
 
-export const useFirestore = (collection: string) => {
+export const useFirestore = (collectionName: string) => {
   const [response, dispatch] = useReducer(firestoreReducer, initialState);
   const [isCancelled, setIsCancelled] = useState(false);
 
   // Fbase Collection:
-  const ref = projectFirestore.collection(collection);
+  const ref = projectFirestore.collection(collectionName); // ref is a CollectionReference
 
-  // Util checks that component is still mounted and hasn't left the DOM
+  // Util to check component is still-mounted\hasn't left the DOM
   const dispatchIfNotCancelled = (action: Action) => {
     if (!isCancelled) {
       dispatch(action)
     }
   }
 
-  const addDocument = async (doc: INewItem) => {
+  const addDocument = async (doc: Partial<IProject>) => {
     await dispatch({ type: 'IS_PENDING', payload: null })
 
     try {
       const createdAt = timestamp.fromDate(new Date());
-      const addedDocumentRef: unknown = await ref.add({ ...doc, createdAt });
-      const newDoc = addedDocumentRef as INewItem // <~~ Makes TS Happy ＜(。_。)＞
+      const addedDocumentRef = await ref.add({ ...doc, createdAt });
+      // const newDoc = addedDocumentRef // <~~ Makes TS Happy ＜(。_。)＞
 
-      await dispatchIfNotCancelled({ type: 'ADDED_DOCUMENT', payload: newDoc })
+      await dispatchIfNotCancelled({ type: 'ADDED_DOCUMENT', payload: addedDocumentRef })
     } catch (err) {
       dispatchIfNotCancelled({ type: 'ERROR', payload: handleError(err) })
     }
