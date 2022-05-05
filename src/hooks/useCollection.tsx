@@ -1,11 +1,16 @@
-import { useState, useEffect, useRef } from "react";
+import firebase from 'firebase/app'; //! <~~ Need for proper typing
+import { useState, useEffect, useRef, SetStateAction } from "react";
 import { projectFirestore } from "../firebase/config";
 import { handleError } from "../ts/ErrorHandler";
-import { TReturnedData, TQueryOptions, TSortingOptions, TFlexibleRef } from "../ts/interfaces-and-types";
+import { TQueryOptions, TSortingOptions, TFlexibleRef } from "../ts/interfaces-and-types";
 
+interface IFbaseResponse<T> {
+  documents: T[];
+  error: string | null;
+}
 
-export const useCollection = (collection: string, options?: TQueryOptions, order?: TSortingOptions) => {
-  const [documents, setDocuments] = useState<null | TReturnedData[]>(null);
+export function useCollection<T>(collection: string, options?: TQueryOptions, order?: TSortingOptions): IFbaseResponse<T> {
+  const [documents, setDocuments] = useState<T[]>([]);
   const [error, setError] = useState<null | string>(null);
 
   // useRef Stops infinite update 🔄 when setting options/order as a useEffect() dependency
@@ -23,11 +28,14 @@ export const useCollection = (collection: string, options?: TQueryOptions, order
       ref = ref.orderBy(...sortingOptions);
     }
     const unsubscribe = ref.onSnapshot((snapshot) => {
-      let results: TReturnedData[] = [];
+      let results: T[] = [];
 
       snapshot.docs.forEach(doc => {
-        const docData = { ...doc.data(), id: doc.id } as TReturnedData
-        results.push(docData)
+        if (doc.exists) {
+          let data = doc.data() as T
+          const docData = { ...data, id: doc.id }
+          results.push(docData)
+        }
       })
 
       // ...Update State:
