@@ -1,4 +1,5 @@
 import { IProject } from '../../ts/interfaces-and-types';
+import ProjectList from '../../components/ProjectList';
 import { useCollection } from '../../hooks/useCollection'
 import './Dashboard.scss'
 
@@ -10,13 +11,7 @@ export default function Dashboard() {
     <div>
       <h2 className="page-title">Dashboard</h2>
       {error && <p className="error">{error}</p>}
-      <ul>
-        {documents &&
-          documents.map((proj: IProject) => {
-            return <li key={proj.id}>{proj.projectName}</li>
-          })
-        }
-      </ul>
+      {documents && <ProjectList projects={documents} />}
     </div>
   )
 }
