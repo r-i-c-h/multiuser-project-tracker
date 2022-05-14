@@ -18,8 +18,10 @@ export default function ProjectListCard({ project }: { project: IProject }) {
           <ul className="assigned-to">
             {project.assignedUsers.map(user =>
               <li key={user.photoURL}>
-                {/* <Avatar src={user.photoURL} name={user.displayName} /> */}
-                <Avatar src={user.photoURL} />
+                <div className="tooltip">
+                  <Avatar src={user.photoURL} />
+                  <span className="tooltiptext">{user.displayName}</span>
+                </div>
               </li>
             )}
           </ul>

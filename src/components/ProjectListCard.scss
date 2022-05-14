@@ -27,10 +27,51 @@
     display: flex;
     margin-top: 1em;
     border-top: 1px solid #eee;
+
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      .tooltiptext {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity .6s;
+
+        background-color: #555;
+        color: #fff;
+        border-radius: 6px;
+        z-index: 999;
+
+        position: absolute;
+        transform: translate(0%, 0%);
+
+        padding: 0.42em;
+
+
+        font-size: 0.64em;
+      }
+      &:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: none;
+        &::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          right: 100%;
+          margin-top: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: transparent #555 transparent transparent;
+
+        }
+      }
+    }
     .avatar {
       margin-right: 0.32em;
       width: 30px;
       height: 30px;
+      pointer-events: none;
     }
+
   }
 }
