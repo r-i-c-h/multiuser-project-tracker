@@ -1,0 +1,40 @@
+.loader-container {
+  padding: 2rem;
+}
+.loader {
+  margin: auto;
+  display: flex;
+  width: 4em;
+  height: 4em;
+  border: 0.64em solid transparent;
+  border-top-color: var(--brand-color);
+  border-bottom-color: var(--brand-color);
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite;
+}
+
+.loader:before {
+  content: '';
+  display: block;
+  margin: auto;
+  width: 2em;
+  height: 2em;
+  border: 0.5em solid var(--brand-color);
+  border-radius: 50%;
+  animation: pulse 1s alternate ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
