@@ -1,5 +1,5 @@
 import firebase from 'firebase/app'; //! <~~ Need for proper typing
-import { useState, useEffect, useRef, SetStateAction } from "react";
+import { useState, useEffect, useRef } from "react";
 import { projectFirestore } from "../firebase/config";
 import { handleError } from "../ts/ErrorHandler";
 import { TQueryOptions, TSortingOptions, TFlexibleRef } from "../ts/interfaces-and-types";
