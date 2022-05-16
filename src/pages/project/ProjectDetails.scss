@@ -1,0 +1,30 @@
+.project-name {
+  .project-name-txt {
+    font-size: 1.1em;
+    color: var(--primary-color);
+  }
+}
+.due-date {
+  display: flex;
+  width: 80%;
+  align-items: center;
+  padding-bottom: .24em;
+  // border-bottom: 1px solid darkgray;
+  margin: 1em 0;
+}
+.due-date-txt {
+  color: var(--primary-color);
+  margin-left: 0.54em;
+}
+
+.project-details {
+  margin: 1em auto;
+}
+
+.project-assigned-user-details {
+  display: flex;
+  align-items: center;
+}
+.project-assigned-user {
+  margin-left: 1em;
+}

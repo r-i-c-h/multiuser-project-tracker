@@ -11,12 +11,16 @@ export const useDocument = (collection: string, docID: string) => {
   const [error, setError] = useState<null | string>(null);
 
   useEffect(() => { // useEffect will fire as soon as this mounts to the DOM
-    const refDoc = projectFirestore.collection(collection).doc(docID);
+    const docRef = projectFirestore.collection(collection).doc(docID);
 
-    const unsubscribe = refDoc.onSnapshot((snapshot: firebase.firestore.DocumentSnapshot) => {
+    const unsubscribe = docRef.onSnapshot((snapshot: firebase.firestore.DocumentSnapshot) => {
       const data = snapshot.data() as IProject;
-      setDocument({ ...data, id: snapshot.id })
-      setError(null);
+      if (data) {
+        setDocument({ ...data, id: snapshot.id })
+        setError(null);
+      } else {
+        setError(`Document ID ${docID} has no data to display`)
+      }
     },
       (err) => {
         setError(handleError(err));
