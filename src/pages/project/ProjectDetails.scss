@@ -1,30 +1,38 @@
-.project-name {
+.project-summary {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 4px;
   .project-name-txt {
-    font-size: 1.1em;
-    color: var(--primary-color);
+    font-size: 1.2em;
+  }
+  .due-date {
+    margin: 1em 0;
+    color: var(--title-color);
+    .due-date-txt {
+      margin-left: 0.48em;
+    }
+  }
+  .details {
+    margin: 1.48em 0 2em;
+    color: var(--text-color);
+    line-height: 1.8;
+    font-size: 0.9em;
+  }
+  h4 {
+    color: var(--text-color);
+    font-size: 0.9em;
   }
 }
-.due-date {
+.assigned-users {
   display: flex;
-  width: 80%;
-  align-items: center;
-  padding-bottom: .24em;
-  // border-bottom: 1px solid darkgray;
-  margin: 1em 0;
-}
-.due-date-txt {
-  color: var(--primary-color);
-  margin-left: 0.54em;
-}
-
-.project-details {
-  margin: 1em auto;
-}
-
-.project-assigned-user-details {
-  display: flex;
-  align-items: center;
-}
-.project-assigned-user {
-  margin-left: 1em;
+  .avatar-and-name-container {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    margin-right: 0.64em;
+    .avatar-name {
+      font-size: 0.8em;
+      margin-left: 0.1em;
+    }
+  }
 }

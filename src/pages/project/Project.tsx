@@ -16,7 +16,9 @@ export default function Project() {
     {error && <p className='error'>{error}</p>}
 
     {document &&
-      <ProjectDetails info={document} />
+      <div className="project-container">
+        <ProjectDetails info={document} />
+      </div>
     }
   </>)
 }
