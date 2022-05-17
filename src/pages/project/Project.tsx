@@ -5,6 +5,7 @@ import ProjectDetails from './ProjectDetails';
 import LoadingAnimation from '../../components/LoadingAnimation';
 
 import './Project.scss'
+import ProjectComments from './ProjectComments';
 
 export default function Project() {
   const { id }: { id: string } = useParams();
@@ -18,6 +19,7 @@ export default function Project() {
     {document &&
       <div className="project-container">
         <ProjectDetails info={document} />
+        <ProjectComments />
       </div>
     }
   </>)

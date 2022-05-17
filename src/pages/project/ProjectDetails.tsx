@@ -10,7 +10,7 @@ export default function ProjectDetails({ info }: IProjectDetails) {
 
   return (
     <div className='project-summary'>
-      <h2 className='page-title'>Project: <span className="project-name-txt">{info.projectName}</span></h2>
+      <h2 className='page-title'><span className="project-name-txt">{info.projectName}</span></h2>
 
       <p className="due-date">
         Due: <span className="due-date-txt">{dateTxt}</span>
