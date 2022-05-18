@@ -6,6 +6,7 @@ import { IProject } from "../ts/interfaces-and-types";
 type Action =
   | { type: 'IS_PENDING', payload: null }
   | { type: 'ADDED_DOCUMENT', payload: unknown } //! Maybe Pick<>? Will it always be project obj?
+  | { type: 'UPDATED_DOCUMENT', payload: Partial<IProject> } //! Maybe Pick<>? Will it always be project obj?
   | { type: 'DELETED_DOCUMENT', payload: null }
   | { type: 'ERROR', payload: string }
 
@@ -28,6 +29,8 @@ const firestoreReducer = (state: State, action: Action): State => {
     case 'IS_PENDING':
       return { ...state, document: null, error: null, isPending: true, success: false }
     case 'ADDED_DOCUMENT':
+      return { ...state, document: action.payload, error: null, isPending: false, success: true }
+    case 'UPDATED_DOCUMENT':
       return { ...state, document: action.payload, error: null, isPending: false, success: true }
     case 'DELETED_DOCUMENT':
       return { ...state, document: null, error: null, isPending: false, success: true }
@@ -69,16 +72,27 @@ export const useFirestore = (collectionName: string) => {
   const deleteDocument = async (id: string) => {
     await dispatch({ type: 'IS_PENDING', payload: null })
     try {
-      const deletedDocument = await ref.doc(id).delete();
+      const ___ = await ref.doc(id).delete();
       dispatchIfNotCancelled({ type: 'DELETED_DOCUMENT', payload: null })
     } catch (err) {
       dispatchIfNotCancelled({ type: 'ERROR', payload: handleError(err) })
     }
   }
 
+  const updateDocument = async (id: string, updatedDoc: IProject) => {
+    await dispatch({ type: "IS_PENDING", payload: null });
+    try {
+      const ___ = await ref.doc(id).update(updatedDoc)
+      dispatchIfNotCancelled({ type: 'UPDATED_DOCUMENT', payload: updatedDoc })
+    } catch (err) {
+      dispatchIfNotCancelled({ type: 'ERROR', payload: handleError(err) })
+    }
+
+  }
+
   useEffect(() => {
     return () => setIsCancelled(true)
   }, [])
 
-  return { addDocument, deleteDocument, response }
+  return { addDocument, updateDocument, deleteDocument, response }
 }
