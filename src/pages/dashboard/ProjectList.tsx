@@ -1,5 +1,5 @@
 import ProjectListCard from './ProjectListCard';
-import { IProject } from '../ts/interfaces-and-types'
+import { IProject } from '../../ts/interfaces-and-types';
 
 import './ProjectList.scss'
 

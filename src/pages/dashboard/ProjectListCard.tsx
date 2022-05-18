@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { IProject } from '../ts/interfaces-and-types'
-import Avatar from './Avatar';
+import { IProject } from '../../ts/interfaces-and-types';
+import Avatar from '../../components/Avatar';
 
 import './ProjectListCard.scss'
 

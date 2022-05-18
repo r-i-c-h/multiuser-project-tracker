@@ -1,5 +1,5 @@
 import { IProject } from '../../ts/interfaces-and-types';
-import ProjectList from '../../components/ProjectList';
+import ProjectList from './ProjectList';
 import { useCollection } from '../../hooks/useCollection'
 import './Dashboard.scss'
 
