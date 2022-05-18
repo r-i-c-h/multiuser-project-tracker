@@ -6,12 +6,12 @@ import { IProject } from "../ts/interfaces-and-types";
 type Action =
   | { type: 'IS_PENDING', payload: null }
   | { type: 'ADDED_DOCUMENT', payload: unknown } //! Maybe Pick<>? Will it always be project obj?
-  | { type: 'UPDATED_DOCUMENT', payload: Partial<IProject> } //! Maybe Pick<>? Will it always be project obj?
+  | { type: 'UPDATED_DOCUMENT', payload: Partial<IProject> }
   | { type: 'DELETED_DOCUMENT', payload: null }
   | { type: 'ERROR', payload: string }
 
 type State = {
-  document: null | unknown; //! Maybe Pick<>? Will it always be project obj?
+  document: null | unknown;
   error: null | string; //** Skipping unknown because `handleError()` will return a string */
   isPending: boolean;
   success: null | boolean;
@@ -60,8 +60,7 @@ export const useFirestore = (collectionName: string) => {
 
     try {
       const createdAt = timestamp.fromDate(new Date());
-      const addedDocumentRef = await ref.add({ ...doc, createdAt });
-      // const newDoc = addedDocumentRef // <~~ Makes TS Happy ＜(。_。)＞
+      const addedDocumentRef = await ref.add({ ...doc, createdAt }); // Uses .add() to generate a new docID (.set() requires an ID!)
 
       await dispatchIfNotCancelled({ type: 'ADDED_DOCUMENT', payload: addedDocumentRef })
     } catch (err) {
@@ -79,15 +78,14 @@ export const useFirestore = (collectionName: string) => {
     }
   }
 
-  const updateDocument = async (id: string, updatedDoc: IProject) => {
+  const updateDocument = async (id: string, docUpdate: Partial<IProject>) => {
     await dispatch({ type: "IS_PENDING", payload: null });
     try {
-      const ___ = await ref.doc(id).update(updatedDoc)
-      dispatchIfNotCancelled({ type: 'UPDATED_DOCUMENT', payload: updatedDoc })
+      const ___ = await ref.doc(id).update(docUpdate)
+      dispatchIfNotCancelled({ type: 'UPDATED_DOCUMENT', payload: docUpdate })
     } catch (err) {
       dispatchIfNotCancelled({ type: 'ERROR', payload: handleError(err) })
     }
-
   }
 
   useEffect(() => {

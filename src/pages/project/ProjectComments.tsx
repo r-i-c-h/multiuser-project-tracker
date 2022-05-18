@@ -1,30 +1,29 @@
 import { FormEvent, useState } from 'react';
 import { timestamp } from '../../firebase/config';
 import { useAuthContext } from '../../hooks/useAuthContext';
-// import { useParams } from 'react-router-dom'
-// import { useDocument } from '../../hooks/useDocument';
-import LoadingAnimation from '../../components/LoadingAnimation';
+import { useFirestore } from '../../hooks/useFirestore';
+import { IProjectDetailsWrapper } from '../../ts/interfaces-and-types';
 
 import './ProjectComments.scss'
 
-export default function ProjectComments() {
+export default function ProjectComments({ project }: IProjectDetailsWrapper) {
   const { user } = useAuthContext();
+  const { updateDocument, response } = useFirestore('projects');
   const [newCommentTxt, setNewCommentTxt] = useState('');
 
   const handleNewCommentSubmit = async (e: FormEvent) => {
+    // Project Comments are in collection('projects').doc(docID).comments array
+    // So updateDocument() gets docID and {comments: []}  where comments MUST contain prior comments as well!
     e.preventDefault();
     const newComment = {
       authorName: user!.displayName,
       authorPhotoURL: user!.photoURL,
       content: newCommentTxt,
       createdAt: timestamp.fromDate(new Date()),
-      commentID: crypto.randomUUID() ?? Math.random(),
+      commentID: crypto.randomUUID() ?? Math.random().toString(),
     }
     console.log(newComment);
-
   }
-  // Project Comments are in collection('projects').doc(docID).comments which is an []
-
   return (<div className='project-comments'>
     <h4>Notes:</h4>
     <form className="new-comment-form" onSubmit={handleNewCommentSubmit}>
@@ -39,5 +38,6 @@ export default function ProjectComments() {
       </label>
       <button className="btn" type="submit">Add</button>
     </form>
+    {project.comments.map(x => (<p>x</p>))}
   </div>)
 }

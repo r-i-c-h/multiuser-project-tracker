@@ -18,8 +18,8 @@ export default function Project() {
 
     {document &&
       <div className="project-container">
-        <ProjectDetails info={document} />
-        <ProjectComments />
+        <ProjectDetails project={document} />
+        <ProjectComments project={document} />
       </div>
     }
   </>)
