@@ -5,8 +5,6 @@ import './Dashboard.scss'
 
 export default function Dashboard() {
   const { documents, error } = useCollection<IProject>('projects');
-  console.log(documents)
-  console.log(error)
   return (
     <div>
       <h2 className="page-title">Dashboard</h2>
