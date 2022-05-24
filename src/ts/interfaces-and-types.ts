@@ -23,12 +23,11 @@ export interface IUser {
 
 //! 👇 ** W I P! ** 👇
 export interface IProjectComment {
-  createdAt?: firebase.firestore.Timestamp;
-  createdBy: Omit<IUser, 'online'>;
-  body: string;
-  commentID: string; //crypto.randomUUID() ?? Math.random()
+  authorName: string | null;
+  authorPhotoURL: string | null;
   content: string;
-  id: string;
+  createdAt: firebase.firestore.Timestamp;
+  commentID: string; //crypto.randomUUID() ?? Math.random()
 }
 
 export interface IProject {
