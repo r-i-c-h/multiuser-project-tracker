@@ -60,7 +60,7 @@ export const useFirestore = (collectionName: string) => {
 
     try {
       const createdAt = timestamp.fromDate(new Date());
-      const addedDocumentRef = await ref.add({ ...doc, createdAt }); // Uses .add() to generate a new docID (.set() requires an ID!)
+      const addedDocumentRef = await ref.add({ ...doc, createdAt }); // .add() generates a new docID (.set() requires an ID)
 
       await dispatchIfNotCancelled({ type: 'ADDED_DOCUMENT', payload: addedDocumentRef })
     } catch (err) {
