@@ -2,8 +2,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /users/{user_id} { // "users" collection
-      //! - Any can create???
-      // - Auth'd can read
+      // - Auth'd can read + create - You must be authorized *before* being "created" as a user.
       allow read, create: if request.auth != null;
       // - if self, can update
       allow update: if request.auth.uid == user_id;
@@ -18,9 +17,3 @@ service cloud.firestore {
     }
   }
 }
-
-
-
-
-
-// -

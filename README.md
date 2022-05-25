@@ -14,11 +14,12 @@ A system for multiple authenticated users to communicate with one another about 
 ---
 
 ## Possible Enhancements:
-* Add a refined user photo experience w/zoom+crop
+* Add a refined user photo experience w/zoom+crop+preview
+* Though a Desktop app, create Mobile-Responsive layouts.
 * Upgrade to Google Firebase JDK v9 (reduces bundle-size)
 * Upgrade to React-Router v6
 * Add online-user Chat functionality
-* Integrate direct user messaging to Email/Slack
+* Integrate direct asynchronous peer messaging to Email/Slack
 * Populate Action Bar with assigned projects
 
 

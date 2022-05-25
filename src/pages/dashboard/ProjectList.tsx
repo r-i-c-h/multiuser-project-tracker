@@ -12,7 +12,7 @@ export default function ProjectList({ projects, isFiltered }: IProjectList) {
 
   return (<div>
     {isFiltered ? (<h3>Projects: <span className="unbold">(filtered)</span></h3>) : (<h3>Projects</h3>)}
-    {projects.length === 0 && <p>No Projects To Display</p>}
+    {projects.length === 0 && <p className="no-projects">No Projects To Display - Check your filter settings? 🤷‍♂️</p>}
     <div>
       <ul className="project-list">
         {projects.map((project) => <ProjectListCard project={project} key={project.id} />)}

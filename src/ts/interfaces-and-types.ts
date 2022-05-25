@@ -21,7 +21,6 @@ export interface IUser {
   photoURL: string | null;
 }
 
-//! 👇 ** W I P! ** 👇
 export interface IProjectComment {
   authorName: string | null;
   authorPhotoURL: string | null;
