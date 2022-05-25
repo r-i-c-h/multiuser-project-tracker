@@ -5,13 +5,13 @@ import './ProjectList.scss'
 
 interface IProjectList {
   projects: IProject[];
+  isFiltered: boolean;
 }
 
-export default function ProjectList({ projects }: IProjectList) {
+export default function ProjectList({ projects, isFiltered }: IProjectList) {
 
   return (<div>
-    <h3>Projects:</h3>
-
+    {isFiltered ? (<h3>Projects: <span className="unbold">(filtered)</span></h3>) : (<h3>Projects</h3>)}
     {projects.length === 0 && <p>No Projects To Display</p>}
     <div>
       <ul className="project-list">

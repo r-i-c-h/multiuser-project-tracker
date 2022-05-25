@@ -1,31 +1,30 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 import { IProject } from "../../ts/interfaces-and-types";
 
 import './ProjectFilter.scss'
 
-interface IProjectList {
-  projects: IProject[];
+interface IProjectFilter {
+  currentFilter: string;
+  updateFilter: (f: string) => void;
 }
 
+const filtersListArray = ['None', 'Assigned to Me', 'Development', 'Design', 'Sales', 'Marketing'];
 
-export default function ProjectFilter({ projects }: IProjectList) {
-  const filtersListArray = ['All', 'Assigned to Me', 'Development', 'Design', 'Sales', 'Marketing'];
-  const [currentFilter, setCurrentFilter] = useState('All');
+export default function ProjectFilter({ currentFilter, updateFilter }: IProjectFilter) {
 
   const handleClick = (x: string) => {
-    console.log(x);
-    setCurrentFilter(x);
+    updateFilter(x.toLowerCase());
   }
 
   return (<div className="project-filter">
     <nav>
-      <p>Filter by:</p>
+      <p>Filter:</p>
       {filtersListArray.map(f => (
         <button
           key={f}
           onClick={() => handleClick(f)}
-          className={currentFilter === f ? 'active' : ''}
+          className={currentFilter === f.toLowerCase() ? 'active' : ''}
         >{f}</button>
       ))}
     </nav>
