@@ -1,8 +1,13 @@
 import { FormEvent, useState } from 'react';
-import Avatar from '../../components/Avatar';
+
 import { timestamp } from '../../firebase/config';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useFirestore } from '../../hooks/useFirestore';
+
+import Avatar from '../../components/Avatar';
+
 import { IProjectComment, IProjectDetailsWrapper } from '../../ts/interfaces-and-types';
 
 import './ProjectComments.scss'
@@ -42,7 +47,7 @@ export default function ProjectComments({ project }: IProjectDetailsWrapper) {
               <p className="comment-author-name">{x.authorName}</p>
             </div>
             <div className="comment-date">
-              {/* <p>{x.createdAt.toString()}</p> */}
+              <p>{formatDistanceToNow(x.createdAt.toDate(), { addSuffix: true })}</p>
             </div>
             <div className="comment-content">
               <p>{x.content}</p>

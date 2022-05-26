@@ -9,6 +9,7 @@
   p {
     font-size: 0.9em;
     margin-right: 10px;
+    color: var(--heading-color);
   }
   button {
     margin-right: 0.48em;
@@ -31,20 +32,5 @@
     &:first-of-type {
       color: var(--text-color);
     }
-    // position: relative;
-    // text-decoration-line: underline;
-
-    // &::after {
-    //   content: '';
-    //   position: absolute;
-    //   height: 2px;
-    //   bottom: 5px;
-    //   margin: 0 auto;
-    //   left: 0;
-    //   right: 0;
-    //   width: 100%;
-    //   background: green;
-    // }
   }
-
 }

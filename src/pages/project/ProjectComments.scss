@@ -22,8 +22,10 @@
   }
   .comment-date {
     color: var(--text-color);
-    font-size: 0.9em;
-    margin: 4px 0 10px;
+    font-size: 0.7em;
+    // margin-top: 4px;
+    font-style: oblique;
+    text-align: right;
   }
   .comment-content {
     color: var(--text-color);
