@@ -2,6 +2,8 @@
   background-color: #fff;
   padding: 30px;
   border-radius: 4px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
   .project-name-txt {
     font-size: 1.2em;
   }
@@ -39,4 +41,5 @@
 
 .project-delete-btn {
   margin-top: 1em;
+  padding-bottom: 1em;
 }

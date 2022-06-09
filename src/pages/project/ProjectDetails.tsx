@@ -51,8 +51,8 @@ export default function ProjectDetails({ project }: IProjectDetailsWrapper) {
             })
           }
         </div>
+        {isProjectAuthorLoggedInUser && (<div><button className="btn project-delete-btn" onClick={handleClick}>Remove Project</button></div>)}
       </div>
-      {isProjectAuthorLoggedInUser && (<button className="btn project-delete-btn" onClick={handleClick}>Remove Project</button>)}
 
     </div>)
 
