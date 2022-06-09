@@ -8,7 +8,7 @@ import Avatar from './Avatar';
 import './OnlineUsersList.scss';
 
 const isOnlineSortCallback = (a: IUser, b: IUser) => a.online > b.online ? -1 : a.online < b.online ? 1 : 0;
-const nameSortCallback = (a: IUser, b: IUser) => a.displayName < b.displayName ? -1 : a.displayName > b.displayName ? 1 : 0;
+const nameSortCallback = (a: IUser, b: IUser) => a!.displayName! < b!.displayName! ? -1 : a!.displayName! > b!.displayName! ? 1 : 0;
 
 export default function OnlineUsersList() {
   const { user } = useAuthContext(); // Currently logged-in user

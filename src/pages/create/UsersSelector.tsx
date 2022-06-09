@@ -14,10 +14,16 @@ interface IUserSelector {
 }
 
 const convertUsersToCategoriesUtil = (users: IUser[]): OptionType[] => {
-  const nameSortCallback = (a: IUser, b: IUser) => a.displayName < b.displayName ? -1 : a.displayName > b.displayName ? 1 : 0;
+  const nameSortCallback = (a: IUser, b: IUser) => a.displayName! < b.displayName! ? -1 : a.displayName! > b.displayName! ? 1 : 0;
+
   return users.slice()
     .sort(nameSortCallback)
-    .map(user => ({ value: user, label: user.displayName }));
+    .map(
+      (user: IUser): OptionType => {
+        let name = user.displayName ?? 'Unknown User'
+        return { value: user, label: name }
+      }
+    );
 }
 
 export default function UsersSelector({ selectedUsers, setSelectedUsers }: IUserSelector) {
