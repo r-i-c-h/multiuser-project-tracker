@@ -6,13 +6,8 @@
   grid-auto-rows: 1fr;
   grid-gap: 1em;
 }
-.unbold {
+.filter-warning {
   font-weight: 400;
   font-style: oblique;
   font-size: 0.8em;
-}
-.no-projects {
-  margin: 1em 0 0 1em;
-  color: var(--highlight-color);
-  font-weight: bold;
 }

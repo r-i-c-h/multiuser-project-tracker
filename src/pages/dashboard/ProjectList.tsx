@@ -11,8 +11,7 @@ interface IProjectList {
 export default function ProjectList({ projects, isFiltered }: IProjectList) {
 
   return (<div>
-    {isFiltered ? (<h3>Projects: <span className="unbold">(filtered)</span></h3>) : (<h3>Projects</h3>)}
-    {projects.length === 0 && <p className="no-projects">No Projects To Display - Check your filter settings? 🤷‍♂️</p>}
+    <h3>Projects {isFiltered && <span className="filter-warning apparate"> - filtered ({projects.length} result{projects.length === 1 ? '' : 's'})</span>} </h3>
     <div>
       <ul className="project-list">
         {projects.map((project) => <ProjectListCard project={project} key={project.id} />)}
