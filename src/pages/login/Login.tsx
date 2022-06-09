@@ -19,20 +19,31 @@ export default function Login() {
     <AppTitleH1 />
     <form onSubmit={handleSubmit} className="login-form">
       <h2>Account Login</h2>
+      <div className="demo-acct-info">
+        <h3>Demo Accounts:</h3>
+        <table>
+          <tr className='usr-acct'><td>📧: <span className="deets">demo@example.com</span></td><td className='usr-acct-pwd'>🔑🔒: <span className="deets">123456</span></td></tr>
+          <tr className='usr-acct'><td>📧: <span className="deets">foo@example.com</span></td><td className='usr-acct-pwd'>🔑🔒: <span className="deets">123456</span></td></tr>
+          <tr className='usr-acct'><td>📧: <span className="deets">bar@example.com</span></td><td className='usr-acct-pwd'>🔑🔒: <span className="deets">123456</span></td></tr>
+        </table>
+        <p className='usr-acct-warn'>(Though you <em>can</em> signup a new user...)</p>
+      </div>
       <label> {/* Email */}
-        <span>Email:</span>
+        <span>Email 📬:</span>
         <input
           required
           type="email"
+          placeholder='Enter Email Address'
           onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
       </label>
       <label> {/* Pwd */}
-        <span>Password:</span>
+        <span>Password 🔑🔒:</span>
         <input
           required
           type="password"
+          placeholder='Enter Password'
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
