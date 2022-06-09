@@ -17,7 +17,7 @@ export default function ProjectFilter({ currentFilter, updateFilter }: IProjectF
     updateFilter(x.toLowerCase());
   }
 
-  return (<div className="project-filter">
+  return (<div className="project-filter apparate">
     <nav>
       <p>Filter:</p>
       {filtersListArray.map(f => (

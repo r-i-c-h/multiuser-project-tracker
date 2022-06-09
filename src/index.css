@@ -79,3 +79,19 @@ textarea {
   padding: 8px;
   margin: 10px 0;
 }
+
+.apparate {
+  animation-duration: var(--anim-duration, 0.5s);
+  animation-name: appear;
+  animation-fill-mode: backwards;
+}
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

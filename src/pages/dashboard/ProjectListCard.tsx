@@ -7,7 +7,7 @@ import './ProjectListCard.scss'
 export default function ProjectListCard({ project }: { project: IProject }) {
 
   return (<>
-    <li className="card">
+    <li className="card apparate">
       <Link to={`/projects/${project.id}`}>
 
         <h4>{project.projectName}</h4>
