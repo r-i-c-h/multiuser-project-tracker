@@ -18,7 +18,7 @@ export default function Login() {
 
   return (<>
     <AppTitleH1 />
-    <form onSubmit={handleSubmit} className="login-form">
+    <form onSubmit={handleSubmit} className="entry-panel">
       <h2>Account Login</h2>
       <DemoAccounts />
       <label> {/* Email */}
