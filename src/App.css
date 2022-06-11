@@ -1,5 +1,6 @@
 .App {
   display: flex;
+  height: 100vh;
 }
 .App .container {
   flex-grow: 1;
