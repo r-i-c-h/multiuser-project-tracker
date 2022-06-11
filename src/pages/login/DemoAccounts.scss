@@ -1,0 +1,26 @@
+.demo-acct-info {
+  max-width: 420px;
+  margin: 0.5em auto 0;
+  width: 80%;
+  color: var(--text-color);
+  border-top: 1px solid var(--text-color);
+  border-bottom: 1px solid var(--text-color);
+}
+.demo-h3 {
+  opacity: 75%;
+}
+.deets {
+  font-family: monospace;
+  font-weight: 700;
+}
+.usr-acct-pwd {
+  padding-left: 1em;
+}
+.usr-acct-warn {
+  font-size: 0.8em;
+  padding-top: 0.5em;
+  text-align: right;
+  & a {
+    color: inherit;
+  }
+}
