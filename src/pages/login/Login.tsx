@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react';
 import { AppTitleH1 } from '../../components/Titles';
 import { useLogin } from '../../hooks/useLogin';
 import { handleError } from '../../ts/ErrorHandler'
+import DemoAccounts from './DemoAccounts';
 
 import './Login.scss'
 
@@ -15,19 +16,11 @@ export default function Login() {
     login(email, password)
   }
 
-  return (<>
+  return (<div className="login-screen">
     <AppTitleH1 />
+    <DemoAccounts />
     <form onSubmit={handleSubmit} className="login-form">
       <h2>Account Login</h2>
-      <div className="demo-acct-info">
-        <h3>Demo Accounts:</h3>
-        <table>
-          <tr className='usr-acct'><td>📧: <span className="deets">demo@example.com</span></td><td className='usr-acct-pwd'>🔑🔒: <span className="deets">123456</span></td></tr>
-          <tr className='usr-acct'><td>📧: <span className="deets">foo@example.com</span></td><td className='usr-acct-pwd'>🔑🔒: <span className="deets">123456</span></td></tr>
-          <tr className='usr-acct'><td>📧: <span className="deets">bar@example.com</span></td><td className='usr-acct-pwd'>🔑🔒: <span className="deets">123456</span></td></tr>
-        </table>
-        <p className='usr-acct-warn'>(Though you <em>can</em> signup a new user...)</p>
-      </div>
       <label> {/* Email */}
         <span>Email 📬:</span>
         <input
@@ -52,5 +45,5 @@ export default function Login() {
       {isPending && <button className="btn" disabled>Loading</button>}
       {error && <div className="error">{handleError(error)}</div>}
     </form>
-  </>)
+  </div>)
 }
