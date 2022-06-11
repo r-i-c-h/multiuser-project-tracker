@@ -12,7 +12,7 @@ const DemoAccounts = () => (
         <tr className='usr-acct'><td>📧: <span className="deets">bar@example.com</span></td><td className='usr-acct-pwd'>🔑🔒: <span className="deets">123456</span></td></tr>
       </tbody>
     </table>
-    <p className='usr-acct-warn'>(Though you <em>can</em> <Link to="/signup" className="">signup a as new user</Link>...)</p>
+    <p className='usr-acct-warn'>(Though you <em>can</em> <Link to="/signup" className="">signup as a new user</Link>...)</p>
   </div>
 )
 
