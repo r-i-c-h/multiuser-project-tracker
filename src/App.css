@@ -3,6 +3,7 @@
   height: 100vh;
 }
 .App .container {
+  overflow-y: scroll;
   flex-grow: 1;
   padding: 1.28rem 60px 0;
 }

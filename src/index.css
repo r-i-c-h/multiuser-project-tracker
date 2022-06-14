@@ -4,8 +4,11 @@
   --text-color: #555;
   --primary-color: #8d69f1;
   --brand-color: #8d69f1;
+  --edge-color: #c7c7c7ff; /* #e4e4e4 ? */
   --highlight-color: #d13267;
   --bg-color: #f4f4f4;
+  --box-shade: 0 2px 5px rgba(0, 0, 0, 0.2);
+  --box-shade-up: 0 4px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* prettier-ignore */
@@ -38,7 +41,7 @@ ul {
   padding: 0.32em 0.7em; /* padding: 8px 12px; */
   font-size: 1em;
   border: 1px solid var(--primary-color);
-  /* box-shadow:0px 0px 0px 1px var(--primary-color) inset; */
+  box-shadow:0px 0px 0px 1px var(--primary-color) inset;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -76,7 +79,7 @@ textarea {
   margin: 1em auto;
   padding: 40px;
   border: 1px solid #ddd;
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 30px var(var(--edge-color));
   background: #fff;
 }
 

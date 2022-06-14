@@ -2,7 +2,7 @@
   background-color: #fff;
   padding: 30px;
   border-radius: 4px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--box-shade);
   margin-bottom: 1rem;
   .project-name-txt {
     font-size: 1.2em;
