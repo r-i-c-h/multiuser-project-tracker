@@ -18,8 +18,8 @@ export default function Navbar() {
             <span className="app-title">Horizon Key</span>
           </Link>
         </li>
-        {!user && <li><Link to="/login">Login</Link></li>}
-        {!user && <li><Link to="/signup">Signup </Link></li>}
+        {!user && <li className='fancylink'><Link to="/login">Login</Link></li>}
+        {!user && <li className='fancylink'><Link to="/signup">Signup </Link></li>}
         {user && !isPending && <li><button className="btn" onClick={logout}>Logout</button></li>}
         {user && isPending && <li><button className="btn" disabled>Working</button></li>}
       </ul>
