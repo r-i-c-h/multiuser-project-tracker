@@ -20,17 +20,23 @@
     font-weight: normal;
     color: var(--text-color);
     cursor: pointer;
-    border-right: 1px solid #e4e4e4;
+    border-right: 1px solid var(--edge-color); //#e4e4e4;
     font-size: 0.9em;
-  }
-  button:last-child {
-    border: 0;
-  }
-  button.active {
-    color: var(--highlight-color);
-    font-weight: bold;
-    &:first-of-type {
-      color: var(--text-color);
+    &:hover {
+      transform: translateY(-2px);
+    }
+    &:last-child {
+      border: 0;
+    }
+    &.active {
+      color: var(--highlight-color);
+      font-weight: bold;
+      &:first-of-type {
+        color: var(--text-color);
+      }
+      &:hover {
+        transform: none;
+      }
     }
   }
 }
