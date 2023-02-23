@@ -1,0 +1,72 @@
+// .foo {
+//   --heading-color: #222;
+//   --text-color: #555;
+//   --primary-color: #8d69f1;
+//   --brand-color: #8d69f1;
+//   --edge-color: #c7c7c7ff;
+//   /* #e4e4e4 ? */
+//   --highlight-color: #d13267;
+//   --bg-color: #f4f4f4;
+//   --box-shade: 0 2px 5px rgba(0, 0, 0, 0.2);
+//   --box-shade-up: 0 4px 5px rgba(0, 0, 0, 0.2);
+// }
+
+label {
+  display: inline;
+  margin: 0;
+}
+.animated-input {
+  position: relative;
+  // width: 250px;
+  // width: 100%;
+  // background-color: blue;
+  margin: 2rem 0;
+  label {
+    margin: 0; // reset from other <labels> in project
+    position: absolute;
+    left: 0; //1ch;
+    // padding: 10px; // 0.5ch;
+    pointer-events: none; // ?
+    // font-size: 1em;
+    // color: green; // INITIAL LABEL COLOR
+    text-transform: uppercase;
+    transition: 0.4s;
+  }
+  input {
+    font-size: 1em;
+    width: 100%;
+    padding: 10px;
+    color: red; //var(--text-color);
+    background-color: yellow; // var(--bg-color);
+    border: 1px solid orange; //var(--primary-color);
+    border-radius: 5px;
+    // transition: 0.4s;
+    outline: none;
+    &:focus {
+      outline: 2px solid red; //var(--primary-color); // <~~ a11y
+    }
+    &:valid ~ label,
+    &:focus ~ label {
+      color: red; //var(--highlight-color);
+      padding: 0 10px;
+      font-size: 0.65em;
+      transform: translate(10px, -7px);
+      background-color: var(--clr-dark);
+      border-left: 1px solid var(--clr-highlight);
+      border-right: 1px solid var(--clr-highlight);
+      letter-spacing: 0.2em;
+    }
+    &:valid,
+    &:focus {
+      border-color: var(--clr-highlight);
+    }
+  }
+  &.filled {
+    // ALTERNATE VERSION....
+    & input:valid ~ label,
+    & input:focus ~ label {
+      background-color: var(--clr-highlight);
+      color: var(--clr-dark);
+    }
+  }
+}

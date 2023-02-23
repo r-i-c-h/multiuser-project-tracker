@@ -1,4 +1,6 @@
 import firebase from 'firebase/app'; // <~~ Need for proper typing
+import { FormEventHandler, HTMLInputTypeAttribute, InputHTMLAttributes, SetStateAction } from 'react';
+import { OnChangeValue } from 'react-select';
 
 /*** Types: ***/
 export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> & U[keyof U]; // force pick a prop from out of another type\interface
@@ -21,14 +23,6 @@ export interface IUser {
   photoURL: string | null;
 }
 
-export interface IProjectComment {
-  authorName: string | null;
-  authorPhotoURL: string | null;
-  content: string;
-  createdAt: firebase.firestore.Timestamp;
-  commentID: string; //crypto.randomUUID() ?? Math.random()
-}
-
 export interface IProject {
   id?: string; // issued when stored \ retrieved from Firebase - immutable
   createdBy: Omit<IUser, 'online'>; // - immutable
@@ -41,6 +35,20 @@ export interface IProject {
   assignedUsers: Omit<IUser, 'online'>[];
 }
 
+export interface IProjectComment {
+  authorName: string | null;
+  authorPhotoURL: string | null;
+  content: string;
+  createdAt: firebase.firestore.Timestamp;
+  commentID: string; //crypto.randomUUID() ?? Math.random()
+}
+
 export interface IProjectDetailsWrapper {
   project: IProject;
+}
+
+export interface IAnimatedInput extends InputHTMLAttributes<HTMLInputElement>{
+  id: string;
+  labelText?: string;
+  injectedValue: string;
 }

@@ -52,7 +52,7 @@ ul {
   outline: 1px solid var(--heading-color);
 }
 
-/* forms */
+/* forms [Not login/signup] */
 label {
   display: block;
   margin: 1.2em auto;
