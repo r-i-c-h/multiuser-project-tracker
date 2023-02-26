@@ -78,9 +78,7 @@ textarea {
   max-width: 480px;
   margin: 1em auto;
   padding: 40px;
-  border: 1px solid #ddd;
-  box-shadow: 0 5px 30px var(--edge-color);
-  background: #fff;
+  box-shadow: var(--box-shade);
 }
 
 .error {

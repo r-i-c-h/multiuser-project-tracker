@@ -1,13 +1,15 @@
 .demo-acct-info {
-  margin: 0.5em auto 0;
+  margin: 1em auto 0;
   padding: 0.2em 1em;
-  // width: 90%;
+  width: 80%;
   color: var(--text-color);
-  border-top: 1px solid var(--text-color);
-  border-bottom: 1px solid var(--text-color);
+  // border-top: 1px solid rgba(0,0,0,0.1);
+  // border-bottom: 1px solid var(--text-color);
+  // box-shadow: var(--box-shade-up);
 }
 .demo-h3 {
   opacity: 75%;
+  text-transform: uppercase;
 }
 .deets {
   font-family: monospace;
@@ -21,6 +23,7 @@
   padding-top: 0.5em;
   text-align: right;
   & a {
-    color: inherit;
+    color: var(--highlight-color);
+
   }
 }
