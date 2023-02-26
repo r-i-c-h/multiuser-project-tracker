@@ -1,72 +1,77 @@
-// .foo {
-//   --heading-color: #222;
-//   --text-color: #555;
-//   --primary-color: #8d69f1;
-//   --brand-color: #8d69f1;
-//   --edge-color: #c7c7c7ff;
-//   /* #e4e4e4 ? */
-//   --highlight-color: #d13267;
-//   --bg-color: #f4f4f4;
-//   --box-shade: 0 2px 5px rgba(0, 0, 0, 0.2);
-//   --box-shade-up: 0 4px 5px rgba(0, 0, 0, 0.2);
-// }
-
-label {
-  display: inline;
-  margin: 0;
-}
 .animated-input {
-  position: relative;
-  // width: 250px;
-  // width: 100%;
-  // background-color: blue;
-  margin: 2rem 0;
-  label {
-    margin: 0; // reset from other <labels> in project
-    position: absolute;
-    left: 0; //1ch;
-    // padding: 10px; // 0.5ch;
-    pointer-events: none; // ?
-    // font-size: 1em;
-    // color: green; // INITIAL LABEL COLOR
-    text-transform: uppercase;
-    transition: 0.4s;
+  --anim-fast: 150ms;
+  --anim-slow: 400ms;
+
+  input, label { // UNsets from index.css
+    font: inherit;
+    display: inline;
+    margin: 0;
   }
+
+  position: relative;
+  margin: 2em 0;
+  // width: 100%;
   input {
     font-size: 1em;
-    width: 100%;
-    padding: 10px;
-    color: red; //var(--text-color);
-    background-color: yellow; // var(--bg-color);
-    border: 1px solid orange; //var(--primary-color);
-    border-radius: 5px;
+    // width: 100%;
+    padding: 0.4em 0.48em; // [RESETs FROM INDEX.CSS]
+    color: var(--heading-color); // BLACK <ACTUAL INPUT VALUE
+    background-color: var(--bg-color); // WHITEISH PLAIN BACKGROUND
+    border: 1px solid;
+    border-color: var(--text-color); // LIGHTGRAY
     // transition: 0.4s;
     outline: none;
+    caret-color: var(--highlight-color); // PINK
+    &::placeholder { opacity: 0; }
     &:focus {
-      outline: 2px solid red; //var(--primary-color); // <~~ a11y
-    }
-    &:valid ~ label,
-    &:focus ~ label {
-      color: red; //var(--highlight-color);
-      padding: 0 10px;
-      font-size: 0.65em;
-      transform: translate(10px, -7px);
-      background-color: var(--clr-dark);
-      border-left: 1px solid var(--clr-highlight);
-      border-right: 1px solid var(--clr-highlight);
-      letter-spacing: 0.2em;
+      outline: 2px solid var(--highlight-color); // <~~ a11y undo
     }
     &:valid,
+    &:not(:placeholder-shown),
     &:focus {
-      border-color: var(--clr-highlight);
+      border-color: var(--highlight-color); // PURPLE
+    }
+    &:valid ~ label,
+    &:not(:placeholder-shown) ~ label,
+    &:focus ~ label {
+      color: var(--primary-color); // PURPLE
+      font-size: 0.8em;
+      letter-spacing: 0.1em;
+      transform: translate(0.6em, -1em);
+      padding: 0 0.2em;
+      background-color: var(--bg-color);
+      // border-left: 1px solid var(--highlight-color);
+      // border-right: 1px solid var(--highlight-color);
     }
   }
-  &.filled {
-    // ALTERNATE VERSION....
-    & input:valid ~ label,
-    & input:focus ~ label {
-      background-color: var(--clr-highlight);
-      color: var(--clr-dark);
-    }
+  label {
+    transition: 400ms;
+
+    position: absolute; // RESET POSITION
+    top: 0;
+    left: 0;
+    text-transform: uppercase;
+    pointer-events: none; // safety
+    /* START CONDITIONS: */
+    color: var(--text-color);
+    transform: translate(0.48em, .4em);
+    font-size: 1.1em;
+    letter-spacing: 0.2em;
+
+    // font-weight: bold;
+    // margin-inline: 0.45em;
+    // padding: 0.1em 0.35em
+    /*
+    background-color: var(--clr1);
+    transition: transform var(--fast) ease,
+              background-color var(--fast) ease;
+    */
   }
+
 }
+  // &.filled {
+    // & input:valid ~ label,
+    // & input:focus ~ label {
+      //   background-color: var(--clr-highlight);
+      //   color: var(--clr-dark);
+      // }
