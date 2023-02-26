@@ -44,7 +44,7 @@ export default function Signup() {
     <>
       <AppTitleH1 />
       <form onSubmit={handleSubmit} className="entry-panel">
-        <h2 className="widget-title">Sign Up</h2>
+        <h2>Sign Up</h2>
         <label>{/* Display name*/}
           <span>Display Name:</span>
           <input
