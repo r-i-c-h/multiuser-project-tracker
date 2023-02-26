@@ -22,6 +22,7 @@
     cursor: pointer;
     border-right: 1px solid var(--edge-color); //#e4e4e4;
     font-size: 0.9em;
+    transition: transform 200ms;
     &:hover {
       transform: translateY(-2px);
     }
