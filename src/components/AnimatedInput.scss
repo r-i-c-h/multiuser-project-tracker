@@ -1,7 +1,4 @@
 .animated-input {
-  --anim-fast: 150ms;
-  --anim-slow: 400ms;
-
   input, label { // UNsets from index.css
     font: inherit;
     display: inline;
@@ -10,38 +7,35 @@
 
   position: relative;
   margin: 2em 0;
-  // width: 100%;
   input {
     font-size: 1em;
-    // width: 100%;
     padding: 0.4em 0.48em; // [RESETs FROM INDEX.CSS]
     color: var(--heading-color); // BLACK <ACTUAL INPUT VALUE
     background-color: var(--bg-color); // WHITEISH PLAIN BACKGROUND
     border: 1px solid;
     border-color: var(--text-color); // LIGHTGRAY
-    // transition: 0.4s;
     outline: none;
-    caret-color: var(--highlight-color); // PINK
+    caret-color: var(--highlight-color); //
     &::placeholder { opacity: 0; }
     &:focus {
       outline: 2px solid var(--highlight-color); // <~~ a11y undo
     }
-    &:valid,
+    // &:valid,
     &:not(:placeholder-shown),
     &:focus {
-      border-color: var(--highlight-color); // PURPLE
+      border-color: var(--highlight-color); //
     }
-    &:valid ~ label,
+    // &:valid ~ label,
     &:not(:placeholder-shown) ~ label,
     &:focus ~ label {
-      color: var(--primary-color); // PURPLE
+      color: var(--primary-color); //
       font-size: 0.8em;
       letter-spacing: 0.1em;
       transform: translate(0.6em, -1em);
-      padding: 0 0.2em;
+      padding: 0 0.4em;
       background-color: var(--bg-color);
-      // border-left: 1px solid var(--highlight-color);
-      // border-right: 1px solid var(--highlight-color);
+      border-left: 1px solid var(--highlight-color);
+      border-right: 1px solid var(--highlight-color);
     }
   }
   label {
@@ -52,8 +46,10 @@
     left: 0;
     text-transform: uppercase;
     pointer-events: none; // safety
+
     /* START CONDITIONS: */
-    color: var(--text-color);
+    color: var(--heading-color);
+    padding: 0 0.4em;
     transform: translate(0.48em, .4em);
     font-size: 1.1em;
     letter-spacing: 0.2em;
