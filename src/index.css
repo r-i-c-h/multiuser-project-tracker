@@ -66,7 +66,7 @@ input,
 textarea {
   padding: 8px 6px;
   font-size: 1em;
-  color: #777;
+  color: var(--text-color);
   width: 100%;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -83,6 +83,22 @@ textarea {
 }
 .entry-panel h2 {
   text-align: center;
+}
+.entry-panel label {
+  letter-spacing: 0.2em;
+}
+.entry-panel input {
+  background-color: transparent;
+}
+.entry-panel input:focus,
+.entry-panel input:focus-within {
+  caret-color: var(--highlight-color);
+  outline: 2px solid var(--highlight-color);
+}
+.entry-panel input[type=text]:not(:placeholder-shown),
+.entry-panel input[type=email]:not(:placeholder-shown),
+.entry-panel input[type=password]:not(:placeholder-shown){
+  outline: 1px solid var(--primary-color);
 }
 .error {
   color: red;

@@ -4,6 +4,7 @@ import { useSignup } from '../../hooks/useSignup'
 import { handleError } from '../../ts/ErrorHandler'
 
 import './Signup.scss'
+import PasswordToggleButton from '../../components/PasswordToggleButton';
 
 export default function Signup() {
   const { signup, isPending, error } = useSignup()
@@ -13,6 +14,11 @@ export default function Signup() {
   const [thumbnailImg, setThumbnailImg] = useState<File | null>(null);
   const [thumbnailError, setThumbnailError] = useState<string | null>(null);
 
+  const [isPasswordInputVisible, setIsPasswordInputVisible] = useState<boolean>(false);
+  const togglePasswordInputVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setIsPasswordInputVisible(!isPasswordInputVisible);
+  }
   const handleImageFileInput = (e: ChangeEvent<HTMLInputElement>) => {
     setThumbnailImg(null) //reset
     const selectedFile = e.target.files![0];
@@ -52,6 +58,7 @@ export default function Signup() {
             type="text"
             onChange={(e) => setDisplayName(e.target.value)}
             value={displayName}
+            placeholder="Desired Display Name"
           />
         </label>
         <label> {/* Email */}
@@ -61,15 +68,18 @@ export default function Signup() {
             type="email"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
+            placeholder="Your Email Address"
           />
         </label>
         <label> {/* Pwd */}
-          <span>Password:</span>
+          <span>Password:
+            <PasswordToggleButton isPasswordVisible={isPasswordInputVisible} onClick={togglePasswordInputVisibility} /></span>
           <input
             required
-            type="password"
+            type={isPasswordInputVisible ? "text" : "password"}
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            placeholder="Enter A Password"
           />
         </label>
         <label> {/* thumbnailImage */}
